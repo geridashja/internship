@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const Movie = require('../module/model');
 route = express.Router();
 
 
@@ -29,15 +30,15 @@ route.get('/show_movies', (req, res) => {
 
 //register users
 route.post('/add', (req, res) => {
-    const newfill = new Credentials(req.body);
-    newfill.save().then((result)=>{
-        res.render('home');
+    const newmovie = new Movie(req.body);
+    newmovie.save().then((result)=>{
+        res.sendFile(path.join(__dirname, '../views/home.html'));
     }).catch((err) => console.log(err));
 });
 
 //delete users
 route.use((req,res)=>{
-    res.sendFile('./views/404.html', { root: __dirname })
+    res.sendFile(path.join(__dirname, '../views/404.html'));
 });
 
 module.exports = route;
