@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Route = require('./routes/routes');
+const ejs = require('ejs');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-
+app.set('view engine', 'ejs');
 const URI ="mongodb+srv://pokaripo:Geri001.@node.xyq4k.mongodb.net/movies?retryWrites=true&w=majority";
 
 //I added { useNewUrlParser: true, useUnifiedTopology: true } to remove unnecessary warnings in terminal 
