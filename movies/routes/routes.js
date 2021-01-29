@@ -1,21 +1,19 @@
 const express = require('express');
+const path = require('path');
 route = express.Router();
 
+
 route.get('/', (req, res) => {
-    res.sendFile('./views/home.html', { root: __dirname })
+    res.sendFile(path.join(__dirname, '../views/home.html'));
 });
 
-// route.get('/contact', (req, res) => {
-//     res.render('contact');
-// });
+route.get('/register_movies', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/register_movies.html'));
+});
 
-// route.get('/about', (req, res) => {
-//     res.render('about');
-// });
-
-// route.get('/fill', (req, res) => {
-//     res.render('fill');
-// });
+route.get('/show_movies', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/show_movies.html'));
+});
 
 // //get all registered users from database and show them to all_users view
 // route.get('/all_users', (req,res) => {
@@ -29,13 +27,13 @@ route.get('/', (req, res) => {
 //     })
 // });
 
-// //register users
-// route.post('/credentials', (req, res) => {
-//     const newfill = new Credentials(req.body);
-//     newfill.save().then((result)=>{
-//         res.render('home');
-//     }).catch((err) => console.log(err));
-// });
+//register users
+route.post('/add', (req, res) => {
+    const newfill = new Credentials(req.body);
+    newfill.save().then((result)=>{
+        res.render('home');
+    }).catch((err) => console.log(err));
+});
 
 //delete users
 route.use((req,res)=>{
