@@ -1,7 +1,7 @@
 <template>
   <h1>ToDo</h1>
-  <Add/>
-  <Show v-bind:todos="todos"/>
+  <Add v-on:add="addit"/>
+  <Show v-on:deletetodo="deletetodo" v-bind:todos="todos"/>
 </template>
 
 <script>
@@ -14,16 +14,16 @@ export default {
   data(){
     return {
       todos : [
-        {
-          id :'1',
-          name :'Todo1'
-        },
-        {
-          id : '2',
-          name :'Todo2'
-        },
-
       ]
+    }
+  },
+  methods: {
+    addit(todo){
+     this.todos = [...this.todos, todo] 
+    },
+    deletetodo(id){
+      //used to see if the todo.id matched with the passed id using the filter method
+      this.todos = this.todos.filter((todo) => todo.id !== id)
     }
   }
 }
