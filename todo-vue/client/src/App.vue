@@ -9,11 +9,9 @@
       <br>
       <button @click="add">Add</button> 
     </form>
-    <div v-for="data in datas" v-bind:key = "data.id">
+    <div v-for="data in datas" v-bind:key = "data._id">
       {{ data.body }}
     </div>
-      {{todo.todo}}
-    {{body}}
   </div>
 </div>
 </template>
@@ -35,7 +33,7 @@ export default {
     // }
   },
   async mounted() {
-    const response = await axios.get('database/')
+    const response = await axios.get('/api/database/')
     //fetching the data
     this.datas = response.data;
     console.log(this.datas)

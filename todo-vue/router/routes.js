@@ -1,21 +1,18 @@
 const Express = require('express');
-const ejs = require('ejs');
-
 const router = Express.Router();
-
 //import database
-const db = require('../database');
-const { response } = require('express');
+const client = require('./api/database');
 
 //getting all todos from database
 router.get('/', (req,res) => {
-    const todoitem = db.query('SELECT * FROM todos ORDER BY id ASC', (error, result) => {
+    const todoitem = client.query('SELECT * FROM todos', (error, result) => {
         if(error){
             throw error;
         }
-        response.json(result)
+        //this is how we accesss the data rows
+        //JSON.stringify(result.rows[0].todo)
+        res.json(result);
     });
-    res.render('home');
 });
 
 // router.post('/', (req,res) => {
