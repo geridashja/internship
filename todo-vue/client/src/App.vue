@@ -7,8 +7,12 @@
     <form>
       <input type="text" placeholder="Add to TODO" required v-model="body">
       <br>
-      <button>Add</button> 
+      <button @click="add">Add</button> 
     </form>
+    <div v-for="data in datas" v-bind:key = "data.id">
+      {{ data.body }}
+    </div>
+      {{todo.todo}}
     {{body}}
   </div>
 </div>
@@ -20,15 +24,21 @@ export default {
   name: 'App',
   data(){
     return {
+      datas: [],
       body: ''
     }
   },
   methods: {
-    // add(e){
-    //   e.preventDefault(),
-    //   this.body = body,
-    //   this.body = "";
+    // async add(e){
+    //   e.preventDefault()
+    //   const response = await axios.post('database/')
     // }
+  },
+  async mounted() {
+    const response = await axios.get('database/')
+    //fetching the data
+    this.datas = response.data;
+    console.log(this.datas)
   }
 }
 </script>

@@ -1,14 +1,20 @@
 const Express = require('express');
-const Bodyparser = require('body-parser');
 const ejs = require('ejs');
 
 const router = Express.Router();
 
 //import database
 const db = require('../database');
+const { response } = require('express');
 
+//getting all todos from database
 router.get('/', (req,res) => {
-    // const todoitem = db.find();
+    const todoitem = db.query('SELECT * FROM todos ORDER BY id ASC', (error, result) => {
+        if(error){
+            throw error;
+        }
+        response.json(result)
+    });
     res.render('home');
 });
 
