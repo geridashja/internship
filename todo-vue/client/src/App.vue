@@ -1,15 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+  <h1>TODO</h1>
+  <hr>
+  <p><strong> Add to TODO list:</strong></p>
+  <div class="form">
+    <form>
+      <input type="text" placeholder="Add to TODO" required v-model="body">
+      <br>
+      <button>Add</button> 
+    </form>
+    {{body}}
+  </div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      body: ''
+    }
+  },
+  methods: {
+    // add(e){
+    //   e.preventDefault(),
+    //   this.body = body,
+    //   this.body = "";
+    // }
   }
 }
 </script>
