@@ -4,13 +4,17 @@
   <hr>
   <p><strong> Add to TODO list:</strong></p>
   <div class="form">
-    <form>
+    <!-- <form>
       <input type="text" placeholder="Add to TODO" required v-model="body">
       <br>
-      <button @click="add">Add</button> 
-    </form>
-    <div v-for="data in datas" v-bind:key = "data._id">
-      {{ data.body }}
+      <button>Add</button> 
+    </form> -->
+    <div>
+      <ul>
+      <li v-for="data in datas" :key = "data._id">
+        {{ data.body}}
+      </li>
+    </ul>
     </div>
   </div>
 </div>
@@ -23,21 +27,19 @@ export default {
   data(){
     return {
       datas: [],
-      body: ''
+      body : ''
     }
   },
   methods: {
-    add(e){
-      e.preventDefault()
-      const response = axios.post('database/')
-      
-    }
+    
   },
-  async mounted() {
-    const response = await axios.get('router/api/database/')
+  mounted() {
+    axios.get('http://localhost:3000//router/routes').then((response)=>{
+      this.datas = response;
+      console.log(response);
+      });
     //fetching the data
-    this.datas = response.data;
-    console.log(this.datas)
+
   }
 }
 </script>

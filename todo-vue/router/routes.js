@@ -6,7 +6,7 @@ const client = require('./api/database');
 
 //getting all todos from database
 router.get('/', (req,res) => {
-    const todoitem = client.query('SELECT * FROM todos', (error, result) => {
+    client.query('SELECT * FROM todos', (error, result) => {
         if(error){
             throw error;
         }
