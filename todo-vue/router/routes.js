@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const Express = require('express');
 const router = Express.Router();
 //import database
@@ -10,14 +11,13 @@ router.get('/', (req,res) => {
             throw error;
         }
         //this is how we accesss the data rows
-        //JSON.stringify(result.rows[0].todo)
+        console.log((JSON.stringify(result.rows[2].body)));
         res.json(result);
     });
 });
 
-// router.post('/', (req,res) => {
-//     const todoitem = new db;
-//     db.save();
-//     res.render('home');
-// });
+
+router.post('/', (req,res) => {
+    client.query('INSERT INTO "todos" VALUES ($1, $2)', [2,"qi nbeth sot"]);
+});
 module.exports = router;

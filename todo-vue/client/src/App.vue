@@ -27,13 +27,14 @@ export default {
     }
   },
   methods: {
-    // async add(e){
-    //   e.preventDefault()
-    //   const response = await axios.post('database/')
-    // }
+    add(e){
+      e.preventDefault()
+      const response = axios.post('database/')
+      
+    }
   },
   async mounted() {
-    const response = await axios.get('/api/database/')
+    const response = await axios.get('router/api/database/')
     //fetching the data
     this.datas = response.data;
     console.log(this.datas)
