@@ -11,13 +11,17 @@
         <form action="/" method="POST">
             <label for="body">ADD TODO:</label>
             <input type="text" id="body" name="body" required><br><br>
-            <button>Add Movie</button>
+            <button>add to list</button>
         </form>
         <br>
         <table>
             <% for(var i=0; i < todoitems.rowCount; i++) { %>
                <tr>
-                 <td><%= todoitems.rows[i].body %></td>
+                 <td><%= todoitems.rows[i].body %> 
+                    <td><form method="GET" action="/<%= todoitems.rows[i].todo_id %>">
+                    <button type="submit">Delete</button>
+                    </form></td>
+                </td>
                </tr>
             <% } %>
             </table>

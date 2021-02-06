@@ -3,9 +3,13 @@ const ejs = require('ejs');
 
 const router = require('./router/router');
 const { urlencoded } = require('express');
+
 const app = Express();
+
 app.use(urlencoded({extended:true}));
 app.use(Express.json());
 app.set('view engine', 'ejs');
+
 app.listen(3000);
+
 app.use(router);

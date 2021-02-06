@@ -33,4 +33,18 @@ router.get('/', async(req,res) =>{
     }
 });
 
+//delete items
+router.get('/:id', async(req,res) => {
+    try {
+        const id = req.params.id;
+        const deleteditem = await pool.query('DELETE FROM todo WHERE todo_id = $1', [id]);
+        console.log(id);
+    } catch (error) {
+        console.log(error.message);
+    }
+    res.redirect('/');
+})
+
+
+
 module.exports = router;
