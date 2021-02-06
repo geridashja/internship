@@ -8,10 +8,18 @@
         <strong><p>Down below add into your TODO app</p></strong>
         <hr>
         <br>
-        <form action="/add" method="POST">
+        <form action="/" method="POST">
             <label for="body">ADD TODO:</label>
             <input type="text" id="body" name="body" required><br><br>
             <button>Add Movie</button>
-          </form>
+        </form>
+        <br>
+        <table>
+            <% for(var i=0; i < todoitems.rowCount; i++) { %>
+               <tr>
+                 <td><%= todoitems.rows[i].body %></td>
+               </tr>
+            <% } %>
+            </table>
     </body>
 </html>
