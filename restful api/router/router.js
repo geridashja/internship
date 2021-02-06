@@ -7,6 +7,22 @@ const router = Express.Router();
 //     res.render('home');
 // });
 
+
+//create a todo item
+router.post('/', async(req,res) =>{
+    // const body = req.query;
+    // console.log(body);
+    // res.render('home');
+    try {
+        const body = req.body.body;
+        const newitem = await pool.query("INSERT INTO todo (body) VALUES ($1)", [body]);
+        console.log(body)
+    } catch (err) {
+        console.log(err.message);
+    }
+    res.redirect('/');
+});
+
 router.get('/', async(req,res) =>{
     try {
         const todoitems = await pool.query('SELECT * FROM todo');
@@ -15,22 +31,6 @@ router.get('/', async(req,res) =>{
     } catch (error) {
         console.log(error.message);
     }
-
 });
-
-//create a todo item
-router.post('/', async(req,res) =>{
-    // const body = req.query;
-    // console.log(body);
-    // res.render('home');
-    try {
-        const body = req.body;
-        // const newitem = await pool.query("INSERT INTO todo (body) VALUES ($1)", [body]);
-        console.log(body)
-    } catch (err) {
-        console.log(err.message);
-    }
-});
-
 
 module.exports = router;
