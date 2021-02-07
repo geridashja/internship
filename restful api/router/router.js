@@ -53,10 +53,7 @@ router.post('/:id', async(req,res) =>{
     } catch (error) {
         console.log(error.message);
     }
-    const id = req.params.id;
     res.redirect('/');
-    
-    console.log(id);
 })
 
 
