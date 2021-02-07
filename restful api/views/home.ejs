@@ -18,8 +18,16 @@
             <% for(var i=0; i < todoitems.rowCount; i++) { %>
                <tr>
                  <td><%= todoitems.rows[i].body %> 
+
                     <td><form method="GET" action="/<%= todoitems.rows[i].todo_id %>">
                     <button type="submit">Delete</button>
+                    </form></td>
+
+                    <td><form method="POST" action="/<%= todoitems.rows[i].todo_id %>">
+                        <!-- <form action="/<%= todoitems.rows[i].todo_id %>" method="POST"> -->
+                        <input type="text" id="body" name="body" required>
+                        <button>Update</button>
+                        
                     </form></td>
                 </td>
                </tr>

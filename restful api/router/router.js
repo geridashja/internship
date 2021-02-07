@@ -38,11 +38,25 @@ router.get('/:id', async(req,res) => {
     try {
         const id = req.params.id;
         const deleteditem = await pool.query('DELETE FROM todo WHERE todo_id = $1', [id]);
-        console.log(id);
     } catch (error) {
         console.log(error.message);
     }
     res.redirect('/');
+});
+
+//update items
+router.post('/:id', async(req,res) =>{
+    try {
+        const id = req.params.id;
+        const newbody = req.body.body;
+        const updateditem = await pool.query("UPDATE todo SET body = $1 WHERE todo_id = $2", [newbody, id]);
+    } catch (error) {
+        console.log(error.message);
+    }
+    const id = req.params.id;
+    res.redirect('/');
+    
+    console.log(id);
 })
 
 
