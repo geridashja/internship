@@ -6,20 +6,22 @@ const router = Express.Router();
 //create a todo item
 router.post('/create', async(req,res) =>{
     try {
-        const newitem = await pool.query("INSERT INTO all_recipes (body) VALUES ($1)", ["shto vaj"]);
+        // const newitem = await pool.query("INSERT INTO all_recipes (body) VALUES ($1)", [req.body.body]);
         // res.json(newitem);
+        const item = req.body;
+        console.log(item);
+        // res.json(req.body);
     } catch (err) {
         console.log(err.message);
     }
     res.redirect('/');
 });
 
-router.get('/', async(req,res) =>{
+router.get('/recipes', async(req,res) =>{
     try {
         const todoitems = await pool.query('SELECT * FROM all_recipes');
         // res.render('home', {todoitems: todoitems});
-        res.send(todoitems);
-        // console.log(todoitems);
+        return res.json(todoitems);
     } catch (error) {
         console.log(error.message);
     }

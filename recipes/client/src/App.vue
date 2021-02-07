@@ -1,15 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>ALL RECIPES</h1>
+    <hr>
+    <p><strong>Add recipes down below:</strong></p>
+    <input v-model="recipe" placeholder="add recipe">
+    <button @click="add()">Add recipe</button>
+    <p>Message is: {{ recipe }}</p>
+    <!-- <div v-for="(recipe,i) in recipes" :key="recipe.id">
+      <ul>
+        <li>{{recipe.rows[i].body}}</li>
+      </ul>
+    </div> -->
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios';
+// import HelloWorld from './components/HelloWorld.vue'
+// import { getrecipes }  from './connection'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      recipe: ""
+    }
+  },
+  methods: {
+    // created() {
+    //   axios.get('http://localhost:3000/recipes').then(response => this.recipes = response.data);
+    //   // console.log(this.recipes);
+    // }
+    add(){
+      // const item = this.recipe;
+      axios.post('http://localhost:3000/create', {body: "item"}).then( (response) =>{
+        console.log(response);
+      });
+    }
   }
 }
 </script>
