@@ -3,12 +3,12 @@
     <h1>ALL RECIPES</h1>
     <hr>
     <p><strong>Add recipes down below:</strong></p>
+
+    <form @submit="add">
       <input v-model="recipe" placeholder="add recipe">
-      <button @click="add()" >Add recipe</button>
-    <!-- <p>Message is: {{ recipe }}</p> -->
-    <!-- <li v-for="(item) in items" :key = "item">
-      {{item.rows[0].all_id}}
-    </li> -->
+      <button>Add recipe</button>
+    </form>
+
     <div v-for="item in items" :key="item.id">
       <div v-for="row in item.rows" :key="row.id">
           <h4>{{row.body }}</h4>
@@ -33,15 +33,13 @@ export default {
     console.log(contacts.data);
   },
   methods: {
-    add(){
+    add(e){
+      e.preventDefault();
       const item = this.recipe;
       axios.post('http://localhost:3000/create',item);
+      //reload page after submitting
+      location.reload();
     },
-    // async getdata(){
-    //   const contacts = await axios.get('http://localhost:3000/recipes');
-    //   this.items = contacts;
-    //   console.log(contacts.data);
-    // }
   }
 }
 </script>

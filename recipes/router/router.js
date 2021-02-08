@@ -21,7 +21,6 @@ router.post('/create', async(req,res) =>{
 router.get('/recipes', async(req,res) =>{
     try {
         const todoitems = await pool.query('SELECT * FROM all_recipes');
-        // res.render('home', {todoitems: todoitems});
         return res.json(todoitems);
     } catch (error) {
         console.log(error.message);
