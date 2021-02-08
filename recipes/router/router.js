@@ -3,14 +3,15 @@ const Express = require('express');
 const pool = require('../database');
 const router = Express.Router();
 
-//create a todo item
+//add a recipe
 router.post('/create', async(req,res) =>{
     try {
-        // const newitem = await pool.query("INSERT INTO all_recipes (body) VALUES ($1)", [req.body.body]);
-        // res.json(newitem);
         const item = req.body;
-        console.log(item);
-        // res.json(req.body);
+        //axios.post returns an object so i need to use Object.keys in order to get the keys
+        const keys = Object.keys(item);
+        //object.keys return a list so keys[0] is the string i need to get
+        const newitem = await pool.query("INSERT INTO all_recipes (body) VALUES ($1)", [keys[0]]);
+        res.json(keys[0]);
     } catch (err) {
         console.log(err.message);
     }
@@ -27,7 +28,7 @@ router.get('/recipes', async(req,res) =>{
     }
 });
 
-//delete items
+//delete recipe
 router.delete('/:id', async(req,res) => {
     try {
         const deleteditem = await pool.query('DELETE FROM all_recipes WHERE all_id = $1', [1]);
@@ -37,7 +38,7 @@ router.delete('/:id', async(req,res) => {
     res.redirect('/');
 });
 
-// //update items
+// //update recipe
 // router.post('/:id', async(req,res) =>{
 //     try {
 //         const id = req.params.id;

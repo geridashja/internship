@@ -6,11 +6,9 @@
     <input v-model="recipe" placeholder="add recipe">
     <button @click="add()">Add recipe</button>
     <p>Message is: {{ recipe }}</p>
-    <!-- <div v-for="(recipe,i) in recipes" :key="recipe.id">
-      <ul>
-        <li>{{recipe.rows[i].body}}</li>
-      </ul>
-    </div> -->
+    <!-- <li v-for="item in items" :key = "item">
+      {{item}}
+    </li> -->
   </div>
 </template>
 
@@ -22,19 +20,21 @@ export default {
   name: 'App',
   data(){
     return {
-      recipe: ""
+      recipe : ''
     }
   },
+  // async mounted() {
+  //   await axios.get("http://localhost:3000/recipes").then(response => this.items = response.data);
+  // },
   methods: {
     // created() {
     //   axios.get('http://localhost:3000/recipes').then(response => this.recipes = response.data);
     //   // console.log(this.recipes);
     // }
     add(){
-      // const item = this.recipe;
-      axios.post('http://localhost:3000/create', {body: "item"}).then( (response) =>{
-        console.log(response);
-      });
+      const item = this.recipe;
+      axios.post('http://localhost:3000/create',item);
+      // this.items.push(response.data);
     }
   }
 }
