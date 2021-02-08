@@ -11,7 +11,7 @@ router.post('/create', async(req,res) =>{
         const keys = Object.keys(item);
         //object.keys return a list so keys[0] is the string i need to get
         const newitem = await pool.query("INSERT INTO all_recipes (body) VALUES ($1)", [keys[0]]);
-        res.json(keys[0]);
+        
     } catch (err) {
         console.log(err.message);
     }

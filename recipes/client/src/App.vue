@@ -3,39 +3,45 @@
     <h1>ALL RECIPES</h1>
     <hr>
     <p><strong>Add recipes down below:</strong></p>
-    <input v-model="recipe" placeholder="add recipe">
-    <button @click="add()">Add recipe</button>
-    <p>Message is: {{ recipe }}</p>
-    <!-- <li v-for="item in items" :key = "item">
-      {{item}}
+      <input v-model="recipe" placeholder="add recipe">
+      <button @click="add()" >Add recipe</button>
+    <!-- <p>Message is: {{ recipe }}</p> -->
+    <!-- <li v-for="(item) in items" :key = "item">
+      {{item.rows[0].all_id}}
     </li> -->
+    <div v-for="item in items" :key="item.id">
+      <div v-for="row in item.rows" :key="row.id">
+          <h4>{{row.body }}</h4>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-// import HelloWorld from './components/HelloWorld.vue'
-// import { getrecipes }  from './connection'
 export default {
   name: 'App',
   data(){
     return {
+      items: [],
       recipe : ''
     }
   },
-  // async mounted() {
-  //   await axios.get("http://localhost:3000/recipes").then(response => this.items = response.data);
-  // },
+  async mounted(){
+    const contacts = await axios.get('http://localhost:3000/recipes');
+    this.items = contacts;
+    console.log(contacts.data);
+  },
   methods: {
-    // created() {
-    //   axios.get('http://localhost:3000/recipes').then(response => this.recipes = response.data);
-    //   // console.log(this.recipes);
-    // }
     add(){
       const item = this.recipe;
       axios.post('http://localhost:3000/create',item);
-      // this.items.push(response.data);
-    }
+    },
+    // async getdata(){
+    //   const contacts = await axios.get('http://localhost:3000/recipes');
+    //   this.items = contacts;
+    //   console.log(contacts.data);
+    // }
   }
 }
 </script>
