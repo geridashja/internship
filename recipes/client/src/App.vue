@@ -6,12 +6,16 @@
 
     <form @submit="add">
       <input v-model="recipe" placeholder="add recipe">
-      <button>Add recipe</button>
+      <button v-on:click="refresh">Add recipe</button>
     </form>
 
     <div v-for="item in items" :key="item.id">
       <div v-for="row in item.rows" :key="row.id">
-          <h4>{{row.body }}</h4>
+        <tbody>
+          <tr>
+            <th>{{row.body }}</th>
+          </tr>
+        </tbody>
       </div>
     </div>
   </div>
@@ -33,12 +37,12 @@ export default {
     console.log(contacts.data);
   },
   methods: {
-    add(e){
-      e.preventDefault();
+    async add(){
       const item = this.recipe;
-      axios.post('http://localhost:3000/create',item);
-      //reload page after submitting
-      location.reload();
+      await axios.post('http://localhost:3000/create',item).then(response => {
+        this.items.push(response.data);
+      });
+      this.recipe = "";
     },
   }
 }

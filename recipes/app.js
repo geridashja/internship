@@ -8,8 +8,6 @@ const { urlencoded } = require('express');
 const app = Express();
 app.use(cors())
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(router);
