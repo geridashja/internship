@@ -35,7 +35,9 @@ const self = {
         let hotels = [];
         for(let hoteldata of hotelDatas){    
             let name = await hoteldata.$eval(('span.sr-hotel__name'),node => node.innerText);
-            hotels.push(name);
+            let city = await hoteldata.$eval(("a.bui-link"),node => node.outerText);
+            let full = name + city;
+            hotels.push(full);
         }
         return hotels;
     }
