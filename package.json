@@ -1,0 +1,17 @@
+{
+  "name": "scraping_booking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "convert-array-to-csv": "^2.0.0",
+    "csv-writer": "^1.6.0",
+    "fs": "0.0.1-security",
+    "puppeteer": "^7.0.4"
+  }
+}
