@@ -20,7 +20,14 @@ const self = {
             if(results.length < nr){
                 let nextPageButton = await self.page.$("#search_results_table > div.bui-pagination.results-paging_simplified.js-results-paging > nav > ul > li.bui-pagination__item.bui-pagination__next-arrow > a");
                 if(nextPageButton){
-                    await nextPageButton.click();
+                    try{
+                        await nextPageButton.click();
+                        console.log("clicked");
+                    }
+                    catch(err){
+                        console.log(err);
+                    }
+                    
                 }
                 else{
                     break;
