@@ -13,7 +13,6 @@ const self = {
 
     result: async () => {
         let results = [];
-
         // do {
         //     let new_result = await self.getdata();
         //     results = [...results, ...new_result];
@@ -27,35 +26,47 @@ const self = {
         //             catch(err){
         //                 console.log(err);
         //             }
-                    
         //         }
         //         else{
         //             break;
         //         }
         //     }
         // }while(results.length <=nr);
-        let lastpage = 40;
-        for (let index = 1; index < lastpage-1; index++) {
-            await self.page.waitFor(1000);
-            // let new_result = await self.getdata(self.page);
-            results = results.concat(await self.getdata(self.page));
-            if (index != lastpage - 1) {
-                let nextPageButton = await self.page.$("#search_results_table > div.bui-pagination.results-paging_simplified.js-results-paging > nav > ul > li.bui-pagination__item.bui-pagination__next-arrow > a");
-                if(nextPageButton){
-                    try{
-                        await nextPageButton.click();
-                        console.log("clicked");
-                    }
-                    catch(err){
-                        console.log(err);
-                    }
+
+        ///different 
+
+        // let lastpage = 40;
+        // for (let index = 1; index < lastpage-1; index++) {
+        //     await self.page.waitFor(1000);
+        //     results = results.concat(await self.getdata(self.page));
+        //     if (index != lastpage - 1) {
+        //         let nextPageButton = await self.page.$("#search_results_table > div.bui-pagination.results-paging_simplified.js-results-paging > nav > ul > li.bui-pagination__item.bui-pagination__next-arrow > a");
+        //         if(nextPageButton){
+        //             try{
+        //                 await nextPageButton.click();
+        //                 console.log("clicked");
+        //             }
+        //             catch(err){
+        //                 console.log(err);
+        //             }
                                 
-                }
-                else{
-                     break;
-                }
+        //         }
+        //         else{
+        //              break;
+        //         }
+        //     }
+        // } 
+        while(await self.page.$("#search_results_table > div.bui-pagination.results-paging_simplified.js-results-paging > nav > ul > li.bui-pagination__item.bui-pagination__next-arrow > a")){
+            results = results.concat(await self.getdata(self.page));
+            try{
+                await self.page.click("#search_results_table > div.bui-pagination.results-paging_simplified.js-results-paging > nav > ul > li.bui-pagination__item.bui-pagination__next-arrow > a");
+                console.log("clicked");
             }
-        } 
+            catch(err){
+                console.log(err);
+            }
+                                        
+        }
         return results;
     },
 
@@ -65,7 +76,8 @@ const self = {
         for(let hoteldata of hotelDatas){    
             let name = await hoteldata.$eval(('span.sr-hotel__name'),node => node.innerText);
             let city = await hoteldata.$eval(("a.bui-link"),node => node.outerText);
-            let full = name.replace(/\n|\r/, "") +  ", " + city.replace(/\n|\r/, "").replace("Show on map", "").replace(',', "").trim();
+            let country = "Turkey";
+            let full = name.replace(/\n|\r/, "") +  ", " + city.replace(/\n|\r/, "").replace("Show on map", "").replace(',', "").trim() + ", " + country;
             hotels.push(full);
         }
         return hotels;
