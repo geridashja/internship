@@ -65,7 +65,7 @@ const self = {
         for(let hoteldata of hotelDatas){    
             let name = await hoteldata.$eval(('span.sr-hotel__name'),node => node.innerText);
             let city = await hoteldata.$eval(("a.bui-link"),node => node.outerText);
-            let full = name + city;
+            let full = name.replace(/\n|\r/, "") +  ", " + city.replace(/\n|\r/, "").replace("Show on map", "").replace(',', "").trim();
             hotels.push(full);
         }
         return hotels;
