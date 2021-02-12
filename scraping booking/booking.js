@@ -37,25 +37,25 @@ async function getdata(page){
     }
 
     //converting results to csv file
-    const csvWriter = createCsvWriter({
-      path: 'file.csv',
-      header: [
-          {id: 'name', title: 'NAME'},
-          {id: 'city', title: 'CITY'},
-          {id: 'country', title: 'COUNTRY'}
-      ]
-    });
-    let res = [];
-    results.forEach(element => {
-      let obj = new Object();
-      obj.name = element.split(',')[0];
-      obj.city = element.split(',')[1];
-      obj.country = element.split(',')[2];
-      res.push(obj);
-    });
-    csvWriter.writeRecords(res)
-    .then(() => {
-      console.log('...Done');
-    });
+    // const csvWriter = createCsvWriter({
+    //   path: 'file.csv',
+    //   header: [
+    //       {id: 'name', title: 'NAME'},
+    //       {id: 'city', title: 'CITY'},
+    //       {id: 'country', title: 'COUNTRY'}
+    //   ]
+    // });
+    // let res = [];
+    // results.forEach(element => {
+    //   let obj = new Object();
+    //   obj.name = element.split(',')[0];
+    //   obj.city = element.split(',')[1];
+    //   obj.country = element.split(',')[2];
+    //   res.push(obj);
+    // });
+    // csvWriter.writeRecords(res)
+    // .then(() => {
+    //   console.log('...Done');
+    // });
     await browser.close();
 })();
