@@ -1,13 +1,16 @@
 const express = require('express');
 const path = require('path');
-const scrap = require('./getnames');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const scrap_names = require('./getnames');
+const scrap_lastnames = require('./getlast_names');
+// const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const app = express();
 
 app.get('/',async(req,res) => {
     try {
-        let results = await scrap();
+        let firstnames = await scrap_names();
+        let lastnames = await scrap_lastnames();
+
         //save as CSV FILE
         // const csvWriter = createCsvWriter({
         //     path: 'file.csv',
@@ -24,7 +27,6 @@ app.get('/',async(req,res) => {
         // csvWriter.writeRecords(res)
         // .then(() => {
         //     console.log('...Done');
-        // });
         res.sendFile('home.html', { root: path.join(__dirname) });
         
     } catch (error) {
