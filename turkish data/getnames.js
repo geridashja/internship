@@ -8,7 +8,6 @@ async function scrap() {
     await page.goto(url);
     let datas = await page.$$('div.page-body strong');
     let results= [];
-    var i =0;
     for(data of datas){
         try{
             let emri = await data.$eval(('div.page-body strong > span'),node => node.innerText);
@@ -18,16 +17,7 @@ async function scrap() {
             console.log(err);
         }
     }
-    // let emri = await page.$eval(('#page-content > p > strong > span'),node => node.innerText);
-    // for(i < data1.length){
-    //     // let emri = await data.$$('#page-content > strong')[i++].innerText;
-    //     // results.push(emri);
-    //     let data = await page.$$('#page-content > p > strong > span').innerText;
-    //     console.log(data)
-    //     i++;
-    // }
-    console.log(results);
-    console.log(results.length);
+    console.log( "Length of names is : " + results.length);
     await browser.close();
     return results;
 };
