@@ -1,14 +1,13 @@
 const express = require('express');
 const path = require('path');
-const csv = require('csv-parser');
-const fs = require('fs');
+const fs = require('fs')
 
-const app = express();
+ const app = express();
 
 app.get('/',async(req,res) => {
     try {
-        let lastnames = [];
-        let firstnames = [];
+        // let lastnames = [];
+        // let firstnames = [];
         res.sendFile('home.html', { root: path.join(__dirname) });
     } catch (error) {
         console.log(error.message);
