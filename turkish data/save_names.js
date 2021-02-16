@@ -1,12 +1,13 @@
 const fs = require('fs');
 const pool = require('./database');
 const csv = require('csvtojson');
-const { json } = require('express');
+const turk_id_gen = require('./turkid_generator');
+
 
 const csvFilePath2='./files/turkish_data.csv'
 
 
-function geri(){
+async function savenames(){
     csv({
         noheader: false,
         headers: ['Names','Lastnames']
@@ -16,9 +17,10 @@ function geri(){
             jsonObj.forEach(async element => {
                 let firstname = element.Names.split(' ')[0];
                 let lastname = element.Lastnames.split(' ')[0];
-                let newitem1 = await pool.query("INSERT INTO data (firstname,lastname) VALUES ($1,$2)", [firstname,lastname]);
+                let turk_iid = turk_id_gen();
+                let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname) VALUES ($1,$2,$3)", [turk_iid, firstname,lastname]);
             })
     })
 }
 
-geri();
+module.exports = savenames;
