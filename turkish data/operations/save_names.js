@@ -4,7 +4,7 @@ const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 
 
-const csvFilePath2='./files/turkish_data.csv'
+const csvFilePath2='./files/turkish_names.csv'
 
 
 async function savenames(){
