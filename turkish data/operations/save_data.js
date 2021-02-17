@@ -15,20 +15,32 @@ async function savedata(){
     .fromFile(csvFilePath2)
         .then((jsonObj)=>{
             jsonObj.forEach(async element => {
+                //getting birthday details
                 let data = birthday_generator();
                 let birthday = data[0];
                 let year = data[1];
                 let month = data[2];
                 let day = data[3];
+                //getting the age of person
+                var d = new Date();
+                var currentyear = d.getFullYear();
+                let age = currentyear-year;
+                var isMarried = "";
+                if(age > 18)
+                    isMarried = "Yes"
+                else
+                    isMarried = "No"
+                //details from csv
                 let firstname = element.Names.split(' ')[0];
                 let lastname = element.Lastnames.split(' ')[0];
                 let father = element.Fathername.split(' ')[0];
                 let mother = element.Mothername.split(' ')[0];
                 let gender = element.Gender.split(' ')[0];
+                //getting the turkish id generated
                 let turk_iid = turk_id_gen();
-                let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,birthday,gender,birthyear,birthmonth,birthdayy) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [turk_iid, firstname,lastname,father,mother,birthday,gender,year,month,day]);
+                //saving to database
+                let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day]);
             })
-        console.log("FINISH");
     })
 }
 
