@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pool = require('./database');
+const pool = require('../database/database');
 const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 
