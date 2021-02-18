@@ -42,8 +42,9 @@ async function savedata(){
                 //getting the turkish id generated
                 let turk_iid = turk_id_gen();
                 let birthobj = new Date(birthday);
+                birthcountry = "TURKEY";
                 //saving to database
-                // let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj]);
+                // let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj,birthcountry]);
             })
     })
 }
