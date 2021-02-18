@@ -10,7 +10,7 @@ function birthday_generator() {
     let year = newdate.slice(1,5);
     let month = newdate.slice(6,8)
     let day = newdate.slice(9,11)
-    let birthday = day + "-" +month + "-"+year;
+    let birthday = year+ "/" +month +"/" +day;
     return [birthday, year,month,day];
 }
 

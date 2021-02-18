@@ -3,6 +3,9 @@ const pool = require('../database/database');
 const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 const birthday_generator = require('./birthday_generator');
+var moment = require('moment');
+const parse = require('postgres-date')
+
 
 const csvFilePath2='./files/turkish_names.csv'
 
@@ -38,8 +41,9 @@ async function savedata(){
                 let gender = element.Gender.split(' ')[0];
                 //getting the turkish id generated
                 let turk_iid = turk_id_gen();
+                let birthobj = new Date(birthday);
                 //saving to database
-                let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day]);
+                // let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj]);
             })
     })
 }
