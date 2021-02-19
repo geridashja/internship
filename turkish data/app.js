@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
 const savedata = require('./operations/save_data');
-
+const saveaccom = require('./operations/accommodation');
 
 const app = express();
 
 app.get('/',async(req,res) => {
     try {
-        await savedata();
+        // await savedata();
+        await saveaccom();
     } catch (error) {
         console.log(error.message);
     }

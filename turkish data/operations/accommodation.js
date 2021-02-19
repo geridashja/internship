@@ -4,7 +4,7 @@ const turk_id_gen = require('./turkid_generator');
 const birthday_generator = require('./birthday_generator');
 
 
-const csvFilePath2='../files/turkish_names.csv'
+const csvFilePath2='./files/turkish_names.csv'
 
 
 async function saveaccom(){
@@ -18,22 +18,33 @@ async function saveaccom(){
                 //details from csv
                 let firstname = element.Names.split(' ')[0];
                 let lastname = element.Lastnames.split(' ')[0];
-                //getting the turkish id generated
-                let turk_iid = turk_id_gen();
                 //generate random room number between 1 and 1000
                 let room_num = random_room_num(1,1000);
-                let chars_ofplate = stringGen();
+                let chars_ofplate = plate_stringsgen();
+                let first_nums_ofplate = random_room_num(1,81);
                 let last_nums_ofplate = random_room_num(100,999);
+                let full_plate = pad(first_nums_ofplate).toString() + " " + chars_ofplate + " " + last_nums_ofplate;
+                let newitem1 = await pool.query("INSERT INTO accommodation (firstname,lastname,room_number,vehicle_plate) VALUES ($1,$2,$3,$4)", [firstname,lastname,room_num,full_plate]);
+                
             })
     })
 }
 
+//converting 1,2,3 etc to 01,02,03 etc
+function pad(num) {
+    if(num < 10){
+        num = num.toString();
+        return "0" + num;
+    }
+    return num;
+}
+//rand nums
 function random_room_num(min, max) {
     return Math.floor(min + Math.random()*(max + 1 - min))
 }
 
-function stringGen()
-{
+//rand chars
+function plate_stringsgen(){
    let length = 2;
    var result = '';
    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -43,4 +54,5 @@ function stringGen()
    }
    return result;
 }
-saveaccom();
+
+module.exports = saveaccom;
