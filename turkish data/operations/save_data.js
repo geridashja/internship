@@ -1,10 +1,7 @@
-const fs = require('fs');
 const pool = require('../database/database');
 const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 const birthday_generator = require('./birthday_generator');
-var moment = require('moment');
-const parse = require('postgres-date')
 
 
 const csvFilePath2='./files/turkish_names.csv'
