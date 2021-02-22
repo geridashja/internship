@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-
+const pool = require('../database/database');
 let bookingUrl = 'https://www.booking.com/searchresults.html?label=gen173nr-1FCAEoggI46AdIM1gEaAaIAQGYATG4ARfIAQzYAQHoAQH4AQKIAgGoAgO4ApHhzYEGwAIB0gIkN2U0Y2QxNzItZDNjYS00ODUxLWI3NjEtMGE0YWY5NzkxZTdi2AIF4AIB&sid=0671f6e18fe455afd933f1aaccfd3eef&sb=1&sb_lp=1&src=index&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Findex.html%3Flabel%3Dgen173nr-1FCAEoggI46AdIM1gEaAaIAQGYATG4ARfIAQzYAQHoAQH4AQKIAgGoAgO4ApHhzYEGwAIB0gIkN2U0Y2QxNzItZDNjYS00ODUxLWI3NjEtMGE0YWY5NzkxZTdi2AIF4AIB%3Bsid%3D0671f6e18fe455afd933f1aaccfd3eef%3Bsb_price_type%3Dtotal%26%3B&ss=Turkey&is_ski_area=&checkin_year=&checkin_month=&checkout_year=&checkout_month=&group_adults=2&group_children=0&no_rooms=1&b_h4u_keep_filters=&from_sf=1&ss_raw=Tur&ac_position=0&ac_langcode=en&ac_click_type=b&dest_id=215&dest_type=country&place_id_lat=38.9637&place_id_lon=34&search_pageview_id=485b3e484fa3027a&search_selected=true&search_pageview_id=485b3e484fa3027a&ac_suggestion_list_length=5&ac_suggestion_theme_list_length=0';
 
 
@@ -36,4 +36,19 @@ async function scrap() {
     return results;
 };
 
-module.exports = scrap;
+async function savehotels(){
+    let array = await scrap();
+        array.forEach(async element => {
+            let obj = new Object();
+            obj.id = random_room_num(10000,50000);
+            obj.name = element.split(',')[0];
+            obj.city = element.split(',')[1];
+            obj.country = element.split(',')[2];
+            let newitem = await pool.query("INSERT INTO otel (hotel_id,hotel_name, city, country) VALUES ($1,$2,$3,$4)", [obj.id,obj.name, obj.city ,obj.country]);
+        });
+}
+
+function random_room_num(min, max) {
+    return Math.floor(min + Math.random()*(max + 1 - min))
+}
+module.exports = savehotels;

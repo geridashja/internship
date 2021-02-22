@@ -8,6 +8,9 @@ const csvFilePath2='./files/turkish_names.csv'
 
 
 async function saveaccom(){
+    let turk_iid = await pool.query('SELECT turk_id FROM person');
+    let hotel_iid = await pool.query('SELECT hotel_id FROM otel');
+    var i = 0;
     csv({
         noheader: false,
         headers: ['Names','Lastnames']
@@ -15,6 +18,8 @@ async function saveaccom(){
     .fromFile(csvFilePath2)
         .then((jsonObj)=>{
             jsonObj.forEach(async element => {
+                let person_id = turk_iid.rows[i++].turk_id;
+                let hotel_id = hotel_iid.rows[i++].hotel_id;
                 //details from csv
                 //generate random room number between 1 and 1000
                 let room_num = random_room_num(1,1000);
@@ -22,7 +27,7 @@ async function saveaccom(){
                 let first_nums_ofplate = random_room_num(1,81);
                 let last_nums_ofplate = random_room_num(100,999);
                 let full_plate = pad(first_nums_ofplate).toString() + " " + chars_ofplate + " " + last_nums_ofplate;
-                let newitem1 = await pool.query("INSERT INTO accommodation (firstname,lastname,room_number,vehicle_plate) VALUES ($1,$2,$3,$4)", [firstname,lastname,room_num,full_plate]);
+                let newitem1 = await pool.query("INSERT INTO accommodation (hotel_id,person_id,room_number,turkish_plate) VALUES ($1,$2,$3,$4)", [hotel_id,person_id,room_num,full_plate]);
                 
             })
     })
