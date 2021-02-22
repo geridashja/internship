@@ -44,6 +44,7 @@ async function savehotels(){
             obj.name = element.split(',')[0];
             obj.city = element.split(',')[1];
             obj.country = element.split(',')[2];
+
             let newitem = await pool.query("INSERT INTO otel (hotel_id,hotel_name, city, country) VALUES ($1,$2,$3,$4)", [obj.id,obj.name, obj.city ,obj.country]);
         });
 }

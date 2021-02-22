@@ -10,18 +10,19 @@ const csvFilePath2='./files/turkish_names.csv'
 async function saveaccom(){
     let turk_iid = await pool.query('SELECT turk_id FROM person');
     let hotel_iid = await pool.query('SELECT hotel_id FROM otel');
+
     var i = 0;
+    var j=0;
     csv({
         noheader: false,
         headers: ['Names','Lastnames']
     })
     .fromFile(csvFilePath2)
         .then((jsonObj)=>{
-            jsonObj.forEach(async element => {
+            jsonObj.slice(-(hotel_iid.rows.length)).forEach(async element => {
+                // console.log(hotel_iid.rows[i++].hotel_id);
                 let person_id = turk_iid.rows[i++].turk_id;
-                let hotel_id = hotel_iid.rows[i++].hotel_id;
-                //details from csv
-                //generate random room number between 1 and 1000
+                let hotel_id = hotel_iid.rows[j++].hotel_id
                 let room_num = random_room_num(1,1000);
                 let chars_ofplate = plate_stringsgen();
                 let first_nums_ofplate = random_room_num(1,81);
@@ -58,4 +59,5 @@ function plate_stringsgen(){
    return result;
 }
 
+// saveaccom();
 module.exports = saveaccom;
