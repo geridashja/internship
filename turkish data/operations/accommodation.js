@@ -16,8 +16,6 @@ async function saveaccom(){
         .then((jsonObj)=>{
             jsonObj.forEach(async element => {
                 //details from csv
-                let firstname = element.Names.split(' ')[0];
-                let lastname = element.Lastnames.split(' ')[0];
                 //generate random room number between 1 and 1000
                 let room_num = random_room_num(1,1000);
                 let chars_ofplate = plate_stringsgen();

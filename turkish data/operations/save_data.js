@@ -46,7 +46,7 @@ async function savedata(){
                 let randomIndex = Math.floor(Math.random() * cities.length); 
                 let randomcity = cities[randomIndex];
                 //saving to database
-                let newitem1 = await pool.query("INSERT INTO data (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry,birthcity) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj,birthcountry,randomcity]);
+                let newitem1 = await pool.query("INSERT INTO person (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry,birthcity) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj,birthcountry,randomcity]);
             })
     })
 }

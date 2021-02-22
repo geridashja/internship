@@ -8,7 +8,7 @@ const app = express();
 
 app.get('/',async(req,res) => {
     try {
-        // await savedata();
+        await savedata();
         // await saveaccom();
         let array = await scrap();
         let resu = [];
