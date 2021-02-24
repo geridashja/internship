@@ -8,9 +8,16 @@ const app = express();
 
 app.get('/',async(req,res) => {
     try {
-        await savedata();
-        await savehotels();
+        await savehotels().then(async res => {
+            await savedata().then(async res =>{
+                console.log("DONE")
+            })
+        });
         await saveaccom();
+        let hotel_iid = await pool.query('SELECT hotel_id FROM otel');
+        pool.query(`UPDATE person SET age = "${}"  WHERE id = 3`, (err, res) => {
+            pool.end();
+        });
     } catch (error) {
         console.log(error.message);
     }

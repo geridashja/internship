@@ -8,13 +8,15 @@ const csvFilePath2='./files/turkish_names.csv'
 
 
 async function savedata(){
+    let hotel_iid = await pool.query('SELECT hotel_id FROM otel');
+    var i = 0;
     csv({
         noheader: false,
         headers: ['Names','Lastnames','Fathername','Mothername','Gender']
     })
     .fromFile(csvFilePath2)
         .then((jsonObj)=>{
-            jsonObj.forEach(async element => {
+            jsonObj.slice(-(hotel_iid.rows.length)).forEach(async element => {
                 //getting birthday details
                 let data = birthday_generator();
                 let birthday = data[0];
@@ -45,8 +47,9 @@ async function savedata(){
                 //randomly select a city
                 // let randomIndex = Math.floor(Math.random() * cities.length); 
                 // let randomcity = cities[randomIndex];
+                let hotel_id = hotel_iid.rows[i++].hotel_id
                 //saving to database
-                let newitem1 = await pool.query("INSERT INTO person (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj,birthcountry]);
+                let newitem1 = await pool.query("INSERT INTO person (turk_id,firstname,lastname,fathername,mothername,gender,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry,otel_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)", [turk_iid, firstname,lastname,father,mother,gender,isMarried,year,month,day,birthobj,birthcountry,hotel_id]);
             })
     })
 }
