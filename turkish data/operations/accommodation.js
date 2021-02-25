@@ -16,20 +16,21 @@ async function saveaccom(){
             arr.push(elem.hotel_id)
         });
     });
-    console.log(arr.length);
-    let arr1 = [];
-    let turk_iid = await pool.query('SELECT turk_id FROM person').then(res =>{
-         res.rows.forEach(elem =>{
-            arr1.push(elem.turk_id)
-        });
-    });
-    console.log(arr1.length)
+    // console.log(arr.length);
+    // let arr1 = [];
+    // .then(res =>{
+    //      res.rows.forEach(elem =>{
+    //          console.log(elem.turk_id)
+    //         arr1.push(elem.turk_id)
+    //     });
+    // });
+    // console.log(arr1.length)
     //.slice(-(hotel_iid.rows.length))
     var i = 0;
     var j=0;
     // let len = hotel_iid.rows.length;
     // let turk_iid = await pool.query('SELECT turk_id FROM person');
-    for(k = 0;k< arr1.length;k++){
+    for(k = 0;k< arr.length;k++){
         // let hotel_id = hotel_iid.rows[j++].hotel_id;
         let room_num = random_room_num(1,1000);
         let chars_ofplate = plate_stringsgen();
@@ -37,8 +38,7 @@ async function saveaccom(){
         let last_nums_ofplate = random_room_num(100,999);
         let full_plate = pad(first_nums_ofplate).toString() + " " + chars_ofplate + " " + last_nums_ofplate;
         let hotel_id = arr[j++];
-        let person_id = arr1[i++];
-        let newitem1 = await pool.query("INSERT INTO accommodation (hotel_id,person_id,room_number,turkish_plate) VALUES ($1,$2,$3,$4)", [hotel_id,person_id,room_num,full_plate]);
+        let newitem1 = await pool.query("INSERT INTO accommodation (hotel_id,room_number,turkish_plate) VALUES ($1,$2,$3)", [hotel_id,room_num,full_plate]);
     }
     // pool.query("UPDATE table2 t2 SET val2 = t1.val1 FROM   table1 t1 WHERE  t2.table2_id = t1.table2_id")
 }

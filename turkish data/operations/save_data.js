@@ -2,8 +2,6 @@ const pool = require('../database/database');
 const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 const birthday_generator = require('./birthday_generator');
-
-
 const csvFilePath2='./files/turkish_names.csv'
 
 
