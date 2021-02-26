@@ -8,7 +8,6 @@ app.get('/',async(req,res) => {
     try {
         await saveaccom();
         await pool.query("UPDATE accommodation o SET person_id = d.turk_id FROM person d WHERE d.otel_id = o.hotel_id;")
-        await pool.query("UPDATE otel o SET accommodation_id = d.hotel_id FROM accommodation d WHERE d.hotel_id = o.hotel_id;");
 
     } catch (error) {
         console.log(error.message);

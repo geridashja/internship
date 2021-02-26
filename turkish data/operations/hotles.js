@@ -36,8 +36,9 @@ async function scrap() {
     return results;
 };
 
-async function savehotels(){
-    let array = await scrap();
+const savehotels = async () => {
+    return new Promise(async (resolve, reject) => {
+        let array = await scrap();
         array.forEach(async element => {
             let obj = new Object();
             obj.id = random_room_num(10000,50000);
@@ -46,9 +47,14 @@ async function savehotels(){
             obj.country = element.split(',')[2];
             let newitem = await pool.query("INSERT INTO otel (hotel_id,hotel_name, city, country) VALUES ($1,$2,$3,$4)", [obj.id,obj.name, obj.city ,obj.country]);
         });
-}
-
+      setTimeout(() => {
+        resolve('xxx');
+      }, 1000)
+    })
+  };
+  
 function random_room_num(min, max) {
     return Math.floor(min + Math.random()*(max + 1 - min))
 }
+
 module.exports = savehotels;
