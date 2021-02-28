@@ -18,7 +18,7 @@ const savealldata = async () => {
         })
         .fromFile(csvFilePath2)
             .then((jsonObj)=>{
-                for(let i=0;i<1;i++){
+                for(let i=0;i<120;i++){
                     jsonObj.forEach(async element => {
                         let data = birthday_generator();
                         let birthday = data[0];

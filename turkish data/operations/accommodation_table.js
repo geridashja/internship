@@ -1,8 +1,6 @@
 const pool = require('../database/database');
 const savealldata = require('./person_table');
-const savehotels = require('./hotel_table');
-const e = require('express');
-
+let DateGenerator = require('random-date-generator');
 
 const csvFilePath2 = './files/turkish_names.csv'
 
@@ -18,10 +16,20 @@ const saveaccom = async () => {
                 let last_nums_ofplate = random_room_num(100,999);
                 let full_plate = pad(first_nums_ofplate).toString() + " " + chars_ofplate + " " + last_nums_ofplate;
     
-                // let hotel_id = arr[j++];
+
+                let startDate = new Date(2020, 1, 1);
+                let endDate = new Date(2021, 2, 20);
+                let date = DateGenerator.getRandomDateInRange(startDate, endDate); 
+                let newdate = JSON.stringify(date).split('T')[0];
+                let year = newdate.slice(1,5);
+                let month = newdate.slice(6,8)
+                let day = newdate.slice(9,11)
+                let datee = year+ "/" +month +"/" +day;
+
+                let accom_date = new Date(datee);
                 let acom_id = random_room_num(1,50000000);
                 let turk_id = elem.turk_id;
-                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate) VALUES ($1,$2,$3,$4)", [acom_id,turk_id,room_num,full_plate]);
+                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate,accommodation_date) VALUES ($1,$2,$3,$4,$5)", [acom_id,turk_id,room_num,full_plate,accom_date]);
                 });
         });
         await pool.query("UPDATE person p SET accommodation_id = d.acom_id FROM accommodation d WHERE d.person_id = p.turk_id")
