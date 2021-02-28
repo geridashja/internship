@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const saveaccom = require('./operations/accommodation');
+const saveaccom = require('./operations/accommodation_table');
 const pool = require('./database/database');
 const app = express();
 

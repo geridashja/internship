@@ -3,7 +3,7 @@ const csv = require('csvtojson');
 const turk_id_gen = require('./turkid_generator');
 const birthday_generator = require('./birthday_generator');
 const savedata = require('./data');
-const savehotels = require('./hotles');
+const savehotels = require('./hotel_table');
 const csvFilePath2='./files/turkish_names.csv'
 
 const savealldata = async () => {

@@ -1,6 +1,6 @@
 const pool = require('../database/database');
-const savealldata = require('./save_data');
-const savehotels = require('./hotles');
+const savealldata = require('./person_table');
+const savehotels = require('./hotel_table');
 const e = require('express');
 
 
