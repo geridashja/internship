@@ -18,9 +18,8 @@ const savealldata = async () => {
         })
         .fromFile(csvFilePath2)
             .then((jsonObj)=>{
-                for(let i=0;i<150;i++){
+                for(let i=0;i<1;i++){
                     jsonObj.forEach(async element => {
-                        var k = 0;
                         let data = birthday_generator();
                         let birthday = data[0];
                         let year = data[1];
@@ -39,11 +38,12 @@ const savealldata = async () => {
                             isMarried = "No"
         
                         let firstname = element.Firstnames.split(' ')[0];
-                        let lastname = last_names.rows[i].lastname;
+                        let lastname = last_names.rows[Math.floor((Math.random() * 8000) + 1)].lastname;
                         console.log(lastname)
                         let father = last_names.rows[Math.floor((Math.random() * 8000) + 1)].fathername;
                         let mother = last_names.rows[Math.floor((Math.random() * 8000) + 1)].mothername;
                         let fullname = firstname + " " + lastname; 
+                        console.log(fullname);
 
                         let turk_iid = turk_id_gen();
 

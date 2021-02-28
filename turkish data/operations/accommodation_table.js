@@ -24,7 +24,7 @@ const saveaccom = async () => {
                 let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate) VALUES ($1,$2,$3,$4)", [acom_id,turk_id,room_num,full_plate]);
                 });
         });
-        // await pool.query("UPDATE accommodation o SET person_id = d.turk_id FROM person d WHERE d.otel_id = o.hotel_id")
+        await pool.query("UPDATE person p SET accommodation_id = d.acom_id FROM accommodation d WHERE d.person_id = p.turk_id")
     setTimeout(() => {
       resolve('xxx');
     }, 1000)
