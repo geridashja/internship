@@ -7,7 +7,8 @@ const csvFilePath2 = './files/turkish_names.csv'
 const saveaccom = async () => {
     await savealldata();
     return new Promise(async (resolve, reject) => {
-        let hotel_iid = await pool.query('SELECT turk_id,otel_id FROM person').then(res =>{
+        let hotel_iid = await pool.query('SELECT hotel_id FROM otel');
+        let turk_iid = await pool.query('SELECT turk_id FROM person').then(res =>{
             res.rows.forEach(async elem =>{
                 let room_num = random_room_num(1,1000);
                 let chars_ofplate = plate_stringsgen();
@@ -25,11 +26,11 @@ const saveaccom = async () => {
                 let month = newdate.slice(6,8)
                 let day = newdate.slice(9,11)
                 let datee = year+ "/" +month +"/" +day;
-
+                let hotel_id = hotel_iid.rows[Math.floor((Math.random() * 950) + 1)].hotel_id
                 let accom_date = new Date(datee);
-                let acom_id = random_room_num(1,50000000);
+                let acom_id = random_room_num(100,5000000000);
                 let turk_id = elem.turk_id;
-                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate,accommodation_date) VALUES ($1,$2,$3,$4,$5)", [acom_id,turk_id,room_num,full_plate,accom_date]);
+                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate,accommodation_date,otel_id) VALUES ($1,$2,$3,$4,$5,$6)", [acom_id,turk_id,room_num,full_plate,accom_date,hotel_id]);
                 });
         });
         await pool.query("UPDATE person p SET accommodation_id = d.acom_id FROM accommodation d WHERE d.person_id = p.turk_id")
