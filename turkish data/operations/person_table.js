@@ -17,7 +17,7 @@ const savealldata = async () => {
         })
         .fromFile(csvFilePath2)
             .then((jsonObj)=>{
-                for(let i=0;i<2;i++){
+                for(let i=0;i<120;i++){
                     jsonObj.forEach(async element => {
                         let data = birthday_generator();
                         let birthday = data[0];
@@ -47,7 +47,7 @@ const savealldata = async () => {
                         let birthobj = new Date(birthday);
 
                         let birthcountry = "TURKEY";
-                        let newitem1 = await pool.query("INSERT INTO person (turk_id,firstname, lastname,fathername,mothername,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry,otel_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)", [turk_iid,firstname,lastname,father,mother,isMarried,year,month,day,birthobj,birthcountry,hotel_id]);
+                        let newitem1 = await pool.query("INSERT INTO person (turk_id,firstname, lastname,fathername,mothername,ismarried,birthyear,birthmonth,birthdayy,data,birthcountry) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)", [turk_iid,firstname,lastname,father,mother,isMarried,year,month,day,birthobj,birthcountry]);
                     })
                 }
         
