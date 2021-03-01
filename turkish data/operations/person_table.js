@@ -38,7 +38,6 @@ const savealldata = async () => {
         
                         let firstname = element.Firstnames.split(' ')[0];
                         let lastname = last_names.rows[Math.floor((Math.random() * 8000) + 1)].lastname;
-                        console.log(lastname)
                         let father = last_names.rows[Math.floor((Math.random() * 8000) + 1)].fathername;
                         let mother = last_names.rows[Math.floor((Math.random() * 8000) + 1)].mothername;
 
