@@ -17,7 +17,7 @@ const saveaccom = async () => {
                 let last_nums_ofplate = random_room_num(100,999);
                 let full_plate = pad(first_nums_ofplate).toString() + " " + chars_ofplate + " " + last_nums_ofplate;
     
-
+                //accom date
                 let startDate = new Date(2020, 1, 1);
                 let endDate = new Date(2021, 2, 20);
                 let date = DateGenerator.getRandomDateInRange(startDate, endDate); 
@@ -26,13 +26,23 @@ const saveaccom = async () => {
                 let month = newdate.slice(6,8)
                 let day = newdate.slice(9,11)
                 let datee = year+ "/" +month +"/" +day;
+                //release date
+                let startDate2 = new Date(2021, 2, 20);
+                let endDate2 = new Date(2021, 5, 20);
+                let date2 = DateGenerator.getRandomDateInRange(startDate2, endDate2); 
+                let newdate2 = JSON.stringify(date2).split('T')[0];
+                let year2 = newdate2.slice(1,5);
+                let month2 = newdate2.slice(6,8)
+                let day2 = newdate2.slice(9,11)
+                let datee2 = year2+ "/" +month2 +"/" +day2;
 
                 let hotel_id = hotel_iid.rows[Math.floor((Math.random() * 950) + 1)].hotel_id
                 
                 let accom_date = new Date(datee);
+                let release_date = new Date(datee2);
                 let acom_id = random_room_num(100,5000000000);
                 let turk_id = elem.turk_id;
-                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate,accommodation_date,otel_id) VALUES ($1,$2,$3,$4,$5,$6)", [acom_id,turk_id,room_num,full_plate,accom_date,hotel_id]);
+                let newitem1 = await pool.query("INSERT INTO accommodation (acom_id,person_id,room_number,turkish_plate,accommodation_date,otel_id,accommodation_release_date) VALUES ($1,$2,$3,$4,$5,$6,$7)", [acom_id,turk_id,room_num,full_plate,accom_date,hotel_id,release_date]);
                 });
         });
     setTimeout(() => {
